@@ -1,5 +1,5 @@
 require_relative 'database.rb'
-require_relative 'users.rb'
+# require_relative 'users.rb'
 
 class QuestionFollow
 
@@ -33,8 +33,26 @@ class QuestionFollow
                 question_id = ?
         SQL
 
-        users.map {|user| User.new(user)}
+        # users.map {|user| User.new(user)}
+        #commented out due to require_relative issues
+    end
 
+    def self.followed_questions_for_user_id(user_id)
+        questions = QuestionsDatabase.instance.execute(<<-SQL, user_id)
+            SELECT
+                questions.id, questions.user_id, questions.title, questions.body
+            FROM
+                questions
+            JOIN
+                question_follows
+            ON
+                questions.id = question_follows.question_id
+            WHERE
+                question_follows.user_id = ?
+        SQL
+
+        # questions.map { |question| Question.new(question) }
+        #commented out due to require_relative issues
     end
 
     def initialize(options)
@@ -45,4 +63,4 @@ class QuestionFollow
     
 end
 
-p QuestionFollow.followers_for_question_id(2)
+# p QuestionFollow.followed_questions_for_user_id(4)
