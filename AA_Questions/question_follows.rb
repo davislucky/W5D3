@@ -38,7 +38,7 @@ class QuestionFollow
     end
 
     def self.followed_questions_for_user_id(user_id)
-        questions = QuestionsDatabase.instance.execute(<<-SQL, user_id)
+         questions = QuestionsDatabase.instance.execute(<<-SQL, user_id)
             SELECT
                 questions.id, questions.user_id, questions.title, questions.body
             FROM
