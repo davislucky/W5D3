@@ -4,6 +4,19 @@ require_relative 'database.rb'
 class Question
     attr_accessor :id, :title, :body, :user_id
 
+    def self.find_by_author_id(user_id)
+        questions = QuestionsDatabase.instance.execute(<<-SQL, user_id)
+            SELECT
+                *
+            FROM
+                questions
+            WHERE
+                user_id = ?
+        SQL
+        return nil if questions.empty?
+        questions.map { |question| Question.new(question) } 
+    end
+
     def self.find_by_id(id)
         questions = QuestionsDatabase.instance.execute(<<-SQL, id)
             SELECT
@@ -25,5 +38,3 @@ class Question
         @user_id = options['user_id']
     end
 end
-
-p question = Question.find_by_id(1)
