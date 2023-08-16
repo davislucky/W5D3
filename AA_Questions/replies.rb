@@ -49,6 +49,10 @@ class Reply
         @question_id = options['question_id']
         @parent_reply_id = options['parent_reply_id']
     end 
+
+    def author
+        self.user_id
+    end
 end
 
-p Reply.find_by_question_id(1)
+p Reply.find_by_question_id(1)[0].author

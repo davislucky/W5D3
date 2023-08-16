@@ -41,19 +41,14 @@ class User
     end
 
     def authored_questions
-        questions = Question.find_by_author_id(self.id)
-        user_dup = self.dup
-        user_dup['questions'] = questions
-        user_dup
+        Question.find_by_author_id(self.id)
     end
 
     def authored_replies
-        replies = Reply.find_by_user_id(self.id)
-        user_dup = self.dup
-        user_dup['replies'] = replies
-        user_dup
+        Reply.find_by_user_id(self.id)
     end
 end
 
-user_inst = User.find_by_id(1)
-p user_inst.authored_questions
+# user_inst = User.find_by_id(1)
+# p user_inst.authored_questions
+# p user_inst.authored_replies

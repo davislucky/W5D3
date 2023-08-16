@@ -1,4 +1,5 @@
 require_relative 'database.rb'
+require_relative 'replies.rb'
 
 
 class Question
@@ -37,4 +38,17 @@ class Question
         @body = options['body']
         @user_id = options['user_id']
     end
+
+    def author 
+        self.user_id
+    end
+
+    def replies
+        Reply.find_by_question_id(self.id)
+    end
 end
+
+
+
+
+
