@@ -90,6 +90,12 @@ INSERT INTO
 VALUES
     ('something else abt dSA from paulo', 2, 1, 1);
 
+INSERT INTO
+    replies (body, user_id, question_id, parent_reply_id)
+VALUES
+    ('reply to child reply', 2, 1, 2);
+
+
 
 INSERT INTO
     question_likes (user_id, question_id)

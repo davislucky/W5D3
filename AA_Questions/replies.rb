@@ -53,6 +53,27 @@ class Reply
     def author
         self.user_id
     end
+
+    def question
+        self.question_id
+    end
+
+    def parent_reply
+        self.parent_reply_id
+    end
+
+    def child_replies
+        replies = QuestionsDatabase.instance.execute(<<-SQL, self.id)
+            SELECT
+                *
+            FROM
+                replies
+            WHERE
+                parent_reply_id = ?
+        SQL
+        replies.map {|reply| Reply.new(reply)}
+    end
+
 end
 
-# p Reply.find_by_question_id(1)[0].author
+# p Reply.find_by_question_id(1)[0].child_replies
