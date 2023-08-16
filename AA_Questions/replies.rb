@@ -55,4 +55,4 @@ class Reply
     end
 end
 
-p Reply.find_by_question_id(1)[0].author
+# p Reply.find_by_question_id(1)[0].author
