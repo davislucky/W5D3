@@ -33,6 +33,15 @@ class Question
         Question.new(questions.first)
     end
 
+    def self.most_followed(n)
+        question_ids = QuestionFollow.most_followed_questions(n)
+        res = []
+        question_ids.each{|hash_ele|
+            res << Question.find_by_id(hash_ele['question_id'])
+        }
+        res
+    end
+
     def initialize(options)
         @id = options['id']
         @title = options['title']

@@ -55,6 +55,19 @@ class QuestionFollow
         #commented out due to require_relative issues
     end
 
+    def self.most_followed_questions(n)
+        QuestionsDatabase.instance.execute(<<-SQL, n)
+            SELECT
+                question_id
+            FROM
+                question_follows
+            GROUP BY
+                question_id
+            ORDER BY count(*)
+            LIMIT ?
+        SQL
+    end
+
     def initialize(options)
         @id = options['id']
         @user_id = options['user_id']
@@ -63,4 +76,4 @@ class QuestionFollow
     
 end
 
-# p QuestionFollow.followed_questions_for_user_id(4)
+p QuestionFollow.most_followed_questions(2)
